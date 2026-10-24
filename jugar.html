@@ -46,7 +46,7 @@ h1{font:900 30px/1 Orbitron,system-ui,sans-serif;margin:0;color:var(--c1);text-s
 
 <div id="over" class="ov"></div>
 <div id="ad" class="ov">
- <div id="adbox">Anuncio de ejemplo<br>Aquí se mostraría el video real</div>
+ <div id="adbox">No hay anuncios disponibles ahora.<br>¡Gracias por jugar! Te damos la recompensa de todos modos.</div>
  <div id="adt"></div>
  <button class="btn m" id="adx" disabled>Recibir recompensa</button>
 </div>
@@ -63,10 +63,9 @@ try{Object.assign(S,JSON.parse(localStorage.getItem('nr1')||'{}'))}catch(e){}
 const save=()=>{try{localStorage.setItem('nr1',JSON.stringify(S))}catch(e){}};
 let tab='play';
 
-/* Anuncio recompensado SIMULADO: aquí se conecta el SDK real (AdSense for Games, AdMob, etc.) */
+/* Sin anuncios reales todavía: se entrega la recompensa directamente. Aquí se conectará el SDK real (H5 Games Ads) */
 function showAd(cb){
- const o=$('#ad'),b=$('#adx');let t=5;o.classList.add('on');b.disabled=true;$('#adt').textContent=t;
- const iv=setInterval(()=>{t--;$('#adt').textContent=t>0?t:'';if(t<=0){clearInterval(iv);b.disabled=false}},1000);
+ const o=$('#ad'),b=$('#adx');o.classList.add('on');b.disabled=false;$('#adt').textContent='';
  b.onclick=()=>{o.classList.remove('on');cb()};
 }
 const addLife=n=>{S.lives=Math.min(9,S.lives+n);save()};
