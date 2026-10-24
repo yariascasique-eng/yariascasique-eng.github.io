@@ -285,13 +285,13 @@ function start(){
  if(S.bo){S.bo=0;save()}shake=0;music(1);$('#tip').style.opacity=1;setTimeout(()=>{$('#tip').style.opacity=0},4000);last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(loop);
  }catch(e){showErr(e)}
 }
-function jump(){if(!G||G.dead||G.j>=2)return;G.vy=G.j?12.5:11;G.j++;G.sl=0;sfx('jump');burst(pl.R.position,'#cfc0ff',5,1.5)}
+function jump(){if(!G||G.dead)return;if(G.j>=2){G.jb=.14;return}G.vy=G.j?15:14;G.gr=40;G.j++;G.sl=0;sfx('jump');burst(pl.R.position,'#cfc0ff',5,1.5)}
 function slide(){if(!G||G.dead)return;if(!G.gnd)G.vy=-18;else{G.sl=.7;sfx('slide')}}
 function lane(d){if(G&&!G.dead)G.l=Math.max(0,Math.min(2,G.l+d))}
 let sw=null;const gm=$('#game');
 gm.addEventListener('pointerdown',e=>{sw={x:e.clientX,y:e.clientY,a:0}});
-gm.addEventListener('pointermove',e=>{if(!sw)return;const dx=e.clientX-sw.x,dy=e.clientY-sw.y;
- if(Math.max(Math.abs(dx),Math.abs(dy))>30){sw.a=1;sw.x=e.clientX;sw.y=e.clientY;if(Math.abs(dx)>Math.abs(dy))lane(dx>0?1:-1);else dy>0?slide():jump()}});
+gm.addEventListener('pointermove',e=>{if(!sw||sw.a)return;const dx=e.clientX-sw.x,dy=e.clientY-sw.y;
+ if(Math.max(Math.abs(dx),Math.abs(dy))>18){sw.a=1;if(Math.abs(dx)>Math.abs(dy))lane(dx>0?1:-1);else dy>0?slide():jump()}});
 gm.addEventListener('pointerup',()=>{if(sw&&!sw.a)jump();sw=null});
 gm.addEventListener('pointercancel',()=>{sw=null});
 addEventListener('keydown',e=>{const k=e.code;
@@ -328,17 +328,17 @@ function upd(dt){
  g.ob.forEach(e=>e.o.position.z+=g.sp*dt);g.cn.forEach(e=>{e.o.position.z+=g.sp*dt;e.o.rotation.y+=dt*4});
  const prev=g.y;let fl=0,wall=0;
  for(const e of g.ob)if(e.k=='house'){const p=e.o.position;if(Math.abs(p.x-g.px)<1&&Math.abs(p.z)<e.L/2+.3){if(prev>=e.H-.3)fl=Math.max(fl,e.H);else wall=e}}
- g.vy-=28*dt;g.y+=g.vy*dt;if(g.y<=fl&&g.vy<=0){if(g.vy<-9){sfx('land');shake=Math.max(shake,.12);burst({x:g.px,y:fl-.6,z:0},'#cfc0ff',8,2)}g.y=fl;g.vy=0;g.j=0}
+ g.jb=Math.max(0,(g.jb||0)-dt);g.vy-=(g.gr||28)*dt;g.y+=g.vy*dt;if(g.y<=fl&&g.vy<=0){if(g.vy<-9){sfx('land');shake=Math.max(shake,.12);burst({x:g.px,y:fl-.6,z:0},'#cfc0ff',8,2)}g.y=fl;g.vy=0;g.j=0;g.gr=28;if(g.jb>0){g.jb=0;jump()}}
  g.fl=fl;g.gnd=g.y<=fl+.01;
  if(wall&&!g.inv&&hit(wall))return;
  for(const e of g.ob){const p=e.o.position,k=e.k;
-  if(k=='pad'){if(!e.u&&Math.abs(p.z)<.8&&Math.abs(p.x-g.px)<1&&g.y<fl+.5){e.u=1;g.vy=18;g.j=1;g.sl=0;g.gnd=0;sfx('pad');shake=.25;vib(20);burst(p,'#ffd24a',16,3)}continue}
+  if(k=='pad'){if(!e.u&&Math.abs(p.z)<.8&&Math.abs(p.x-g.px)<1&&g.y<fl+.5){e.u=1;g.vy=18;g.gr=28;g.j=1;g.sl=0;g.gnd=0;sfx('pad');shake=.25;vib(20);burst(p,'#ffd24a',16,3)}continue}
   if(k=='house'||g.inv||Math.abs(p.z)>=.7)continue;
   if((k=='hang'?(g.y<2.1&&g.y+ph>1.2):(Math.abs(p.x-g.px)<.85&&g.y<(k=='tall'?1.8:.8)))&&hit(e))return}
  g.ob=g.ob.filter(e=>{if(e.o.position.z-(e.L||0)/2<8)return 1;rm(e.o);return 0});
  g.cn=g.cn.filter(e=>{const p=e.o.position;
   if(g.mg>0&&!e.t&&p.z>-10&&p.z<2){const q=Math.min(1,dt*9);p.x+=(g.px-p.x)*q;p.y+=(g.y+.9-p.y)*q}
-  if(Math.abs(p.z)<(e.t?1:.8)&&Math.abs(p.x-g.px)<(e.t?1:.8)&&p.y>g.y-.3&&p.y<g.y+ph+.2){
+  if(Math.abs(p.z)<(e.t?1:.8)&&Math.abs(p.x-g.px)<(e.t?1:.8)&&p.y>g.y-1.7&&p.y<g.y+ph+.2){
    if(e.t)act(e.t);else{const w=g.x2>0?2:1;g.co+=w;g.bonus+=5*w;sfx('coin');burst(p,'#ffd24a',5,2);vib(8)}
    rm(e.o);return 0}
   if(p.z<8)return 1;rm(e.o);return 0});
