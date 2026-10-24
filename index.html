@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neon Runner — Juego gratis de correr por las calles de Tokio</title>
+<meta name="description" content="Neon Runner es un juego gratuito en 3D para el navegador: corre por las calles de Tokio de noche, esquiva obstáculos, salta a los tejados y recoge monedas y power-ups.">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root{color-scheme:dark;--bg:#080413;--pn:#150b2b;--ln:#2d1c55;--tx:#f2ecff;--mu:#a090cc;--c1:#19f3ff;--c2:#ff2bd6;--c3:#ffd24a}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.65}
+  .w{max-width:760px;margin:0 auto;padding:0 20px}
+  header{padding:48px 0 28px;text-align:center}
+  h1{font:900 clamp(32px,8vw,52px)/1.05 Orbitron,system-ui,sans-serif;margin:0 0 14px;color:var(--c1);text-shadow:0 0 14px var(--c1),0 0 34px var(--c2)}
+  .sub{color:var(--mu);font-size:18px;margin:0 auto 26px;max-width:560px}
+  .play{display:inline-block;padding:16px 38px;border-radius:14px;background:var(--c2);color:var(--bg);font-weight:800;font-size:19px;text-decoration:none;box-shadow:0 0 22px rgba(255,43,214,.6)}
+  h2{font:900 21px Orbitron,system-ui,sans-serif;color:var(--c1);margin:40px 0 12px}
+  .card{background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:16px 18px;margin-bottom:12px}
+  .card h3{margin:0 0 4px;font-size:17px;color:var(--c3)}
+  .card p{margin:0;color:var(--tx)}
+  ul{padding-left:20px;margin:8px 0}
+  li{margin:4px 0}
+  .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+  footer{border-top:1px solid var(--ln);margin-top:48px;padding:24px 0 40px;text-align:center;color:var(--mu);font-size:14px}
+  footer a{color:var(--c1)}
+  .k{background:var(--ln);border-radius:6px;padding:1px 7px;font-size:14px}
+</style>
+</head>
+<body>
+<div class="w">
+
+<header>
+  <h1>NEON RUNNER</h1>
+  <p class="sub">Corre por las calles de Tokio de noche, salta a los tejados y esquiva el tráfico de neón. Un juego gratuito en 3D que se juega directamente en tu navegador, sin instalar nada.</p>
+  <a class="play" href="jugar.html">▶ Jugar ahora</a>
+</header>
+
+<h2>Cómo se juega</h2>
+<div class="card">
+  <p>Tu corredor avanza solo por una calle de tres carriles. Tu trabajo es cambiar de carril, saltar o deslizarte para sobrevivir el mayor tiempo posible y conseguir la puntuación más alta.</p>
+  <ul>
+    <li><b>En el celular:</b> desliza el dedo a la izquierda o derecha para cambiar de carril, hacia arriba para saltar (puedes hacer doble salto) y hacia abajo para deslizarte.</li>
+    <li><b>En computadora:</b> usa las flechas <span class="k">←</span> <span class="k">→</span> para moverte, <span class="k">↑</span> o <span class="k">Espacio</span> para saltar y <span class="k">↓</span> para deslizarte.</li>
+    <li>Pisa un <b>trampolín</b> o haz doble salto para subir al segundo piso: los tejados de las casas esconden monedas extra. Si no subes a tiempo, chocarás con la fachada.</li>
+  </ul>
+</div>
+
+<h2>Power-ups</h2>
+<div class="grid">
+  <div class="card"><h3>Escudo</h3><p>Te protege de un choque y te da unos segundos de invulnerabilidad.</p></div>
+  <div class="card"><h3>Imán</h3><p>Atrae las monedas cercanas hacia ti sin que tengas que cambiar de carril.</p></div>
+  <div class="card"><h3>Puntos x2</h3><p>Duplica el valor de cada moneda que recojas mientras dure el efecto.</p></div>
+</div>
+
+<h2>Los distritos de Tokio</h2>
+<div class="card">
+  <p>Cada 300 metros la ciudad cambia de ambiente, con su propio cielo y su propia paleta de color: <b>Shibuya</b>, <b>Shinjuku</b>, <b>Asakusa</b> y <b>Akihabara</b>. Mientras corres verás letreros de neón en japonés, tiendas, máquinas expendedoras, la lluvia y la Torre de Tokio al fondo.</p>
+</div>
+
+<h2>Personajes</h2>
+<div class="grid">
+  <div class="card"><h3>Nova</h3><p>Corredora de chaqueta cian y pelo oscuro con mechones en punta.</p></div>
+  <div class="card"><h3>Kai</h3><p>Corredor de chaqueta magenta y pelo plateado, con gorra.</p></div>
+  <div class="card"><h3>Lux</h3><p>Corredora de chaqueta dorada y pelo rosa recogido en coleta.</p></div>
+</div>
+<div class="card">
+  <p>Además puedes cambiar su ropa (visor, gorra, gabardina o máscara) y completar misiones para ganar vidas extra.</p>
+</div>
+
+<h2>Consejos para llegar lejos</h2>
+<div class="card">
+  <ul>
+    <li>Mira siempre un poco más adelante: la velocidad aumenta con la distancia.</li>
+    <li>Guarda el doble salto para los trampolines y los tejados.</li>
+    <li>Deslizarte en el aire te hace caer más rápido, útil para esquivar carteles colgantes.</li>
+    <li>Recoge el escudo antes de entrar en los tramos con muchas casas y obstáculos.</li>
+  </ul>
+</div>
+
+<h2>Sobre los anuncios</h2>
+<div class="card">
+  <p>Neon Runner es gratis. Para financiarlo, el juego puede mostrar anuncios opcionales: tú decides si quieres verlos para recibir vidas extra, desbloquear personajes o duplicar tus monedas. Tu progreso se guarda solo en tu dispositivo. Consulta la <a href="privacy.html" style="color:var(--c1)">política de privacidad</a> para más detalles.</p>
+</div>
+
+<footer>
+  <p><a href="jugar.html">Jugar</a> · <a href="privacy.html">Política de privacidad</a></p>
+  <p>Contacto: <span style="color:var(--c3)">[tu-email-de-contacto@tudominio.com]</span></p>
+  <p>© Neon Runner</p>
+</footer>
+
+</div>
+</body>
+</html>
